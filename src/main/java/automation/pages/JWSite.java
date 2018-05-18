@@ -1,21 +1,16 @@
 package automation.pages;
 
-import gherkin.lexer.Th;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 public class JWSite {
-    private final String url = "https://dashboard.jwplayer.com/";
     private final WebDriver driver;
 
     @FindBy(name = "email")
@@ -27,14 +22,8 @@ public class JWSite {
     @FindBy(css = "button[id='submit_login']")
     private WebElement loginButton;
 
-    @FindBy(linkText = "Players")
-    private WebElement playerButton;
-
     @FindBy(id = "player-title")
     private WebElement playerTitle;
-
-    @FindBy(id = "res_ratio")
-    private WebElement aspectRatio;
 
     @FindBy(css = "button[class='button button-default button-med ng-binding']")
     private WebElement saveChangesButton;
@@ -46,10 +35,11 @@ public class JWSite {
         driver = commonDriver;
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         PageFactory.initElements(driver, this);
+        driver.manage().window().maximize();
     }
 
     public void load() {
-        driver.get(url);
+        driver.get("https://dashboard.jwplayer.com/");
     }
 
     public void login(String email, String password) {
@@ -60,8 +50,8 @@ public class JWSite {
         loginButton.click();
     }
 
-    public void clickPlayersLink() {
-        playerButton.click();
+    public void clickLink(String linkName) {
+        driver.findElement(By.linkText(linkName)).click();
     }
 
     public void clickPlayer(String playerName){
@@ -74,11 +64,6 @@ public class JWSite {
         playerTitle.sendKeys(newPlayerName);
     }
 
-    public void changeAspectRatioTo(String newAspectRatio) {
-       Select select = new Select(aspectRatio);
-       select.selectByVisibleText(newAspectRatio);
-    }
-
     public void saveMyChanges() {
         saveChangesButton.click();
     }
@@ -88,14 +73,8 @@ public class JWSite {
         closePlayerBuilderButton.click();
     }
 
-    public boolean checkPlayerNameExists(String playerName) throws Throwable {
+    public void checkPlayerNameExists(String playerName) throws Throwable {
         Thread.sleep(1000);
-        return driver.findElement(By.linkText(playerName)).isDisplayed();
+        assertThat(driver.findElement(By.linkText(playerName)).isDisplayed(), is(true));
     }
-
-    public String checkPlayerSize(String playerName) {
-        WebElement table = driver.findElement(By.xpath("//div[@class='table-responsive']/table"));
-        String path = "//tr[td[a[contains(text(), '" + playerName + "')]]]/td[@class='ng-binding']";
-        return table.findElement(By.xpath(path)).getText();
-    };
 }

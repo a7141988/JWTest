@@ -1,3 +1,5 @@
+@selenium
+
 Feature: JW Test
 
   Scenario: Alter JW Player properties

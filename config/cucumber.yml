@@ -1,0 +1,5 @@
+# config/cucumber.yml
+##YAML Template
+---
+city-routes: --tags @city-routes
+selenium: --tags @selenium

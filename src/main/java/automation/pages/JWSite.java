@@ -19,7 +19,7 @@ public class JWSite {
     @FindBy(name = "password")
     private WebElement passwordField;
 
-    @FindBy(css = "button[id='submit_login']")
+    @FindBy(css = "button[class='pui-button pui-button--type-primary']")
     private WebElement loginButton;
 
     @FindBy(id = "player-title")

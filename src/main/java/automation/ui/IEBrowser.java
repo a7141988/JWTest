@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 class IEBrowser extends InternetExplorerDriver {
     public static WebDriver buildIEBrowser() throws Throwable {
-        DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(IGNORE_ZOOM_SETTING, true);
         
         System.setProperty("webdriver.ie.driver", TestConfig.valueFor("WebDriverIeDriverPath"));

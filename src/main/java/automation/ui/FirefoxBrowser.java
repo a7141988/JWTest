@@ -17,6 +17,6 @@ public class FirefoxBrowser extends FirefoxDriver {
     }
 
     private FirefoxBrowser(FirefoxProfile desiredProfile) {
-        super(desiredProfile);
+        super();
     }
 }

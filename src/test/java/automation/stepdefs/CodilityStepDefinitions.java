@@ -1,9 +1,7 @@
 package automation.stepdefs;
 
 import automation.pages.CodilitySteps;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.*;
 
 public class CodilityStepDefinitions {
     private final CodilitySteps codilitySteps;

@@ -1,11 +1,25 @@
 package automation.support;
 
 import automation.ui.SharedDriver;
-import cucumber.runtime.java.picocontainer.PicoFactory;
+import io.cucumber.picocontainer.PicoFactory;
 
-public class PicoDependencyInjector extends PicoFactory {
+import javax.naming.Context;
+import javax.naming.Name;
+import javax.naming.spi.ObjectFactory;
+import java.util.Hashtable;
+
+public class PicoDependencyInjector implements ObjectFactory {
+
+    private PicoFactory delegate = new PicoFactory();
 
     public PicoDependencyInjector() {
-        addClass(SharedDriver.class);
+        delegate.addClass(SharedDriver.class);
+    }
+
+
+    @Override
+    public Object getObjectInstance(Object obj, Name name, Context nameCtx,
+                                    Hashtable<?,?> environment) {
+        return new Object();
     }
 }

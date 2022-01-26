@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.*;
 public class JWSite {
     private final WebDriver driver;
 
-    @FindBy(name = "email")
+    @FindBy(name = "username")
     private WebElement emailField;
 
     @FindBy(name = "password")
